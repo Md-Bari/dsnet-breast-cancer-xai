@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breast Cancer Detection - Grad-CAM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>🩺 Breast Cancer Detection</h1>
+    <p class="subtitle">Upload a histopathology image (224 × 224)</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label class="upload-box" id="uploadBox">
+            <input type="file" name="file" accept="image/*" required onchange="fileUploaded()">
+            <span id="uploadText">📤 Upload an image</span>
+        </label>
+        <button type="submit">🔍 Predict</button>
+    </form>
+
+    {% if result %}
+    <div class="result {% if result.prediction=='Malignant' %}danger{% elif result.prediction=='Benign' %}safe{% else %}unknown{% endif %}">
+        <p><b>{{ result.image }}</b></p>
+        <p>Prediction: {{ result.prediction }}</p>
+        <div class="confidence-bar">
+            <div class="fill" style="width: {{ result.confidence|round(2) }}%"></div>
+        </div>
+        <p>{{ result.confidence|round(2) }}%</p>
+    </div>
+
+    {% if gradcam_path %}
+    <h2 class="section-title">Model Explanation (Grad-CAM)</h2>
+    <div class="images-side-by-side">
+        <div class="image-card">
+            <p>Original Image</p>
+            <img src="{{ url_for('static', filename='uploads/' + result.image) }}">
+        </div>
+        <div class="image-card">
+            <p>Grad-CAM Overlay</p>
+            <img src="{{ url_for('static', filename='explain/' + gradcam_path) }}">
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+
+<script>
+function fileUploaded(){
+    document.getElementById("uploadBox").style.background = "#e3f2fd";
+    document.getElementById("uploadBox").style.borderColor = "#1976d2";
+    document.getElementById("uploadText").innerText = "✅ Image selected";
+}
+</script>
+
+</body>
+</html>
