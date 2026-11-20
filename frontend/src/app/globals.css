@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  /* H&E-inspired accent: hematoxylin violet / eosin pink */
+  --color-stain-50: #faf5ff;
+  --color-stain-100: #f3e8ff;
+  --color-stain-200: #e9d5ff;
+  --color-stain-500: #a855f7;
+  --color-stain-600: #9333ea;
+  --color-stain-700: #7e22ce;
+  --color-stain-900: #3b0764;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+input[type="range"] {
+  accent-color: var(--color-stain-600);
+}
