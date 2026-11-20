@@ -1,0 +1,23 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DSNET_CONFIDENCE_THRESHOLD: "0.75"
+      DSNET_CORS_ORIGINS: '["http://localhost:3000"]'
+    volumes:
+      - dsnet-data:/app/data   # prediction history + Grad-CAM images survive restarts
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  dsnet-data:
