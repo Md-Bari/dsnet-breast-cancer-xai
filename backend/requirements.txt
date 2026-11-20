@@ -1,0 +1,8 @@
+# Python 3.10-3.12 (TensorFlow does not ship wheels for newer Python yet)
+tensorflow>=2.16,<2.21
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic-settings>=2.4
+opencv-python-headless>=4.9
+numpy>=1.26,<2.2
