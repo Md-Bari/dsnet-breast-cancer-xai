@@ -20,7 +20,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # ==============================
 # Load model
 # ==============================
-MODEL_PATH = "Ds-Net-p3-final_fold5_best.h5"
+MODEL_PATH = os.path.join("..", "backend", "models", "Ds-Net-p3-final_fold5_best.h5")
 model = load_model(MODEL_PATH)
 CLASS_NAMES = {0: "Benign", 1: "Malignant"}
 
